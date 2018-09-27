@@ -44,19 +44,26 @@ namespace webShow
 
         private void WebInfo1_CreatNewWeb(object arg1, CreatWebEventArgs arg2)
         {
-            XtraTabPage page = new XtraTabPage();
-            PanelControl panel = new PanelControl();
-            panel.Dock = DockStyle.Fill;
-            WebInfo webf = new WebInfo();
-            webf.Dock = DockStyle.Fill;
-            webf.GetTitle += WebInfo1_GetTitle;
-            webf.CreatNewWeb += WebInfo1_CreatNewWeb;
-            webf.bet_web.Text = arg2.statusText;
-            webf.lurl = arg2.statusText;
-            panel.Controls.Add(webf);
-            page.Controls.Add(panel);
-            this.xtraTabControl1.TabPages.Add(page);
-            this.xtraTabControl1.SelectedTabPage = this.xtraTabControl1.TabPages[this.xtraTabControl1.TabPages.Count - 1];
+            try
+            {
+                XtraTabPage page = new XtraTabPage();
+                PanelControl panel = new PanelControl();
+                panel.Dock = DockStyle.Fill;
+                WebInfo webf = new WebInfo();
+                webf.Dock = DockStyle.Fill;
+                webf.GetTitle += WebInfo1_GetTitle;
+                webf.CreatNewWeb += WebInfo1_CreatNewWeb;
+                webf.bet_web.Text = arg2.statusText;
+                webf.lurl = arg2.statusText;
+                panel.Controls.Add(webf);
+                page.Controls.Add(panel);
+                this.xtraTabControl1.TabPages.Add(page);
+                this.xtraTabControl1.SelectedTabPage = this.xtraTabControl1.TabPages[this.xtraTabControl1.TabPages.Count - 1];
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void WebInfo1_GetTitle(object arg1, CreatWebEventArgs arg2)
@@ -70,50 +77,62 @@ namespace webShow
 
         private void xtraTabControl1_CustomHeaderButtonClick(object sender, DevExpress.XtraTab.ViewInfo.CustomHeaderButtonEventArgs e)
         {
-            if (e.Button == this.xtraTabControl1.CustomHeaderButtons[2])
+            try
             {
-                if (this.WindowState == FormWindowState.Normal)
+                if (e.Button == this.xtraTabControl1.CustomHeaderButtons[2])
                 {
-                    this.WindowState = FormWindowState.Maximized;
-                    this.xtraTabControl1.CustomHeaderButtons[2].Image = this.imageList1.Images[2];
+                    if (this.WindowState == FormWindowState.Normal)
+                    {
+                        this.WindowState = FormWindowState.Maximized;
+                        this.xtraTabControl1.CustomHeaderButtons[2].Image = this.imageList1.Images[2];
+                    }
+                    else
+                    {
+                        this.WindowState = FormWindowState.Normal;
+                        this.xtraTabControl1.CustomHeaderButtons[2].Image = this.imageList1.Images[1];
+                    }
                 }
-                else
+                else if (e.Button == this.xtraTabControl1.CustomHeaderButtons[1])
                 {
-                    this.WindowState = FormWindowState.Normal;
-                    this.xtraTabControl1.CustomHeaderButtons[2].Image = this.imageList1.Images[1];
+                    this.WindowState = FormWindowState.Minimized;
                 }
-            }
-            else if (e.Button == this.xtraTabControl1.CustomHeaderButtons[1])
+                else if (e.Button == this.xtraTabControl1.CustomHeaderButtons[3])
+                {
+                    this.Close();
+                }
+                else if (e.Button == this.xtraTabControl1.CustomHeaderButtons[0])
+                {
+                    XtraTabPage page = new XtraTabPage();
+                    PanelControl panel = new PanelControl();
+                    panel.Dock = DockStyle.Fill;
+                    WebInfo webf = new WebInfo();
+                    webf.Dock = DockStyle.Fill;
+                    webf.GetTitle += WebInfo1_GetTitle;
+                    webf.CreatNewWeb += WebInfo1_CreatNewWeb;
+                    webf.lurl = "";
+                    panel.Controls.Add(webf);
+                    page.Controls.Add(panel);
+                    page.Text = "新标签页";
+                    this.xtraTabControl1.TabPages.Add(page);
+                    this.xtraTabControl1.SelectedTabPage = this.xtraTabControl1.TabPages[this.xtraTabControl1.TabPages.Count - 1];
+                }
+            }catch(Exception ex)
             {
-                this.WindowState = FormWindowState.Minimized;
-            }
-            else if (e.Button == this.xtraTabControl1.CustomHeaderButtons[3])
-            {
-                this.Close();
-            }
-            else if (e.Button == this.xtraTabControl1.CustomHeaderButtons[0])
-            {
-                XtraTabPage page = new XtraTabPage();
-                PanelControl panel = new PanelControl();
-                panel.Dock = DockStyle.Fill;
-                WebInfo webf = new WebInfo();
-                webf.Dock = DockStyle.Fill;
-                webf.GetTitle += WebInfo1_GetTitle;
-                webf.CreatNewWeb += WebInfo1_CreatNewWeb;
-                webf.lurl = "";
-                panel.Controls.Add(webf);
-                page.Controls.Add(panel);
-                page.Text = "新标签页";
-                this.xtraTabControl1.TabPages.Add(page);
-                this.xtraTabControl1.SelectedTabPage = this.xtraTabControl1.TabPages[this.xtraTabControl1.TabPages.Count - 1];
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void xtraTabControl1_CloseButtonClick(object sender, EventArgs e)
         {
-            DevExpress.XtraTab.ViewInfo.ClosePageButtonEventArgs a = (DevExpress.XtraTab.ViewInfo.ClosePageButtonEventArgs)e;
-            XtraTabPage page = (XtraTabPage)a.Page;
-            page.Dispose();
+            try
+            {
+                DevExpress.XtraTab.ViewInfo.ClosePageButtonEventArgs a = (DevExpress.XtraTab.ViewInfo.ClosePageButtonEventArgs)e;
+                XtraTabPage page = (XtraTabPage)a.Page;
+                page.Dispose();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         Point sp = new Point();

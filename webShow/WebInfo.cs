@@ -35,7 +35,6 @@ namespace webShow
             this.btn_back.Image = this.imageList1.Images[0];
             this.btn_next.Image = this.imageList1.Images[1];
             this.btn_refresh.Image = this.imageList1.Images[2];
-
         }
 
         private void bet_web_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
